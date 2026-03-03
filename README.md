@@ -57,17 +57,17 @@ services:
 
 ```mermaid
 flowchart LR
-    subgraph pve01 Node
-        subgraph LXC Container 100 (This Repo)
+    subgraph PVE01 [pve01 Node]
+        subgraph LXC100 [LXC Container 100 - This Repo]
             C[Cloudflared Tunnel] -->|http| D[Dozzle API Server]
         end
     end
 
-    subgraph Proxmox Nodes (pve01, pve02, pve03)
-        subgraph App LXCs
-            A1[Project A Agent\nport:7007]
-            A2[Project B Agent\nport:7007]
-            A3[Project C Agent\nport:7007]
+    subgraph Nodes [Proxmox Nodes - pve01, pve02, pve03]
+        subgraph Apps [App LXCs]
+            A1["Project A Agent<br>port:7007"]
+            A2["Project B Agent<br>port:7007"]
+            A3["Project C Agent<br>port:7007"]
         end
     end
 
