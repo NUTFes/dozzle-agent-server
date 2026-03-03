@@ -1,6 +1,6 @@
 # NUTFes Dozzle Agent Server
 
-NUTFes内の複数プロジェクトのコンテナログを、[Dozzle Agent](http://dozzle.dev/guide/agent) 機能を用いて集約し、Cloudflare Accessでセキュアに一元管理するためのサーバー基盤リポジトリです。
+複数プロジェクトのコンテナログを、[Dozzle Agent](http://dozzle.dev/guide/agent) 機能を用いて集約し、Cloudflare Accessでセキュアに一元管理するためのサーバー基盤リポジトリです。
 
 ## 構成概要
 
@@ -18,7 +18,7 @@ NUTFes内の複数プロジェクトのコンテナログを、[Dozzle Agent](ht
 
 ## 導入方法（各プロジェクト開発者向け）
 
-自分の担当しているプロジェクトのログをこの中央ダッシュボードへ出力するには、プロジェクトの `compose.yml` に Agent コンテナの定義を追記するだけです。Dozzle Agentは軽量に設計されており、安全にログを転送します。
+自分の担当しているプロジェクトのログをこの中央ダッシュボードへ出力するには、プロジェクトの `compose.yml` に Agent コンテナの定義を追記するだけです。
 
 ### 1. プロジェクトへのAgentの追加手順（コピペで完了）
 
@@ -92,8 +92,8 @@ cp .env.example .env
 `.env` ファイルを開き、環境変数を設定します。
 
 - **`DOZZLE_REMOTE_AGENT`**: ログを収集したい各プロジェクト(Agent)のエンドポイントをカンマ区切りで列挙します。各LXCのIPアドレスを指定します。
-  _フォーマット:_ `[ホストIPアドレス]:7007`
-  _例:_ `192.168.10.2:7007,192.168.10.3:7007,192.168.10.4:7007`
+  - _フォーマット:_ `[ホストIPアドレス]:7007`
+  - _例:_ `192.168.10.2:7007,192.168.10.3:7007,192.168.10.4:7007`
 - **`TUNNEL_TOKEN`**: Cloudflare Zero Trust ダッシュボードで払い出された Cloudflared Tunnel のトークン
 
 ### 3. モニタリングの起動
@@ -104,4 +104,6 @@ cp .env.example .env
 docker compose up -d
 ```
 
-設定したCloudflare TunnelのPublic Hostnameにアクセスすると、認証通過後にすべてのプロジェクト(Agent)のログが一元化されたダッシュボードで閲覧可能になります。新しくAgentが追加された場合は、`.env`の `DOZZLE_REMOTE_AGENT` にIPを追記し、このサーバーの `docker compose up -d` を再実行して反映させます。
+設定したCloudflare TunnelのPublic Hostnameにアクセスすると、認証通過後にすべてのプロジェクト(Agent)のログが一元化されたダッシュボードで閲覧可能になります。
+
+新しくAgentが追加された場合は、`.env`の `DOZZLE_REMOTE_AGENT` にIPを追記し、このサーバーの `docker compose up -d` を再実行して反映させます。
