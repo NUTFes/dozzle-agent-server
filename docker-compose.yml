@@ -1,0 +1,17 @@
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle-server
+    environment:
+      - DOZZLE_REMOTE_AGENT=${DOZZLE_REMOTE_AGENT}
+    restart: always
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: dozzle-tunnel
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    restart: always
+    depends_on:
+      - dozzle
