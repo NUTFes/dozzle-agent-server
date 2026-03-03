@@ -2,6 +2,8 @@ services:
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle-server
+    volumes:
+      - ./data:/data
     environment:
       - DOZZLE_REMOTE_AGENT=${DOZZLE_REMOTE_AGENT}
     restart: always
